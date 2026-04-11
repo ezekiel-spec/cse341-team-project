@@ -3,7 +3,7 @@ const ObjectId = require('mongodb').ObjectId;
 
 const getAll = async (req, res) => {
   try {
-    const result = await mongodb.getDb().db().collection('actors').find();
+    const result = await mongodb.getDb().db().collection('users').find();
     result.toArray().then((lists) => {
       res.setHeader('Content-Type', 'application/json');
       res.status(200).json(lists);
@@ -13,24 +13,24 @@ const getAll = async (req, res) => {
   }
 };
 
-const createActor = async (req, res) => {
+const createUser = async (req, res) => {
   try {
-    const actor = {
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      birthDate: req.body.birthDate,
-      nationality: req.body.nationality,
-      mostFamousRole: req.body.mostFamousRole
+    const user = {
+      username: req.body.username,
+      email: req.body.email,
+      password: req.body.password,
+      role: req.body.role,
+      bio: req.body.bio
     };
-    const response = await mongodb.getDb().db().collection('actors').insertOne(actor);
+    const response = await mongodb.getDb().db().collection('users').insertOne(user);
     if (response.acknowledged) {
       res.status(201).json(response);
     } else {
-      res.status(500).json('Error occurred while creating the actor.');
+      res.status(500).json('Some error occurred while creating the user.');
     }
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
 
-module.exports = { getAll, createActor };
+module.exports = { getAll, createUser };
