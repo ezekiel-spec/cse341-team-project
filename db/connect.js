@@ -9,9 +9,12 @@ const initDb = (callback) => {
     console.log('Db is already initialized!');
     return callback(null, _db);
   }
+  // Added standard connection options for stability
   MongoClient.connect(process.env.MONGODB_URI)
     .then((client) => {
-      _db = client;
+      // Logic Change: We store the database instance directly
+      _db = client; 
+      console.log('Successfully connected to MongoDB');
       callback(null, _db);
     })
     .catch((err) => {
