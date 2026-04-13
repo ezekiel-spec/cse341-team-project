@@ -1,17 +1,19 @@
 {
   "name": "cse341-team-project",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Project for CSE341 involving Players, Teams, Tournaments, and Users",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js",
+    "test": "jest --watchAll",
+    "swagger": "node swagger.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ezekiel-spec/cse341-team-project.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Ezekiel Augustine",
   "license": "ISC",
   "type": "commonjs",
   "bugs": {
@@ -22,9 +24,16 @@
     "body-parser": "^2.2.2",
     "dotenv": "^17.4.1",
     "express": "^5.2.1",
+    "express-session": "^1.19.0",
     "mongodb": "^7.1.1",
+    "passport": "^0.7.0",
+    "passport-github2": "^0.1.12",
     "swagger-autogen": "^2.23.7",
     "swagger-ui-express": "^5.0.1",
     "validatorjs": "^3.22.1"
+  },
+  "devDependencies": {
+    "jest": "^30.3.0",
+    "supertest": "^7.2.2"
   }
 }
