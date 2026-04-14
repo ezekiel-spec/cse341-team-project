@@ -4,11 +4,9 @@ const ObjectId = require('mongodb').ObjectId;
 // GET ALL
 const getAll = async (req, res) => {
   try {
-    const result = await mongodb.getDb().db().collection('players').find();
-    result.toArray().then((lists) => {
-      res.setHeader('Content-Type', 'application/json');
-      res.status(200).json(lists);
-    });
+    const lists = await mongodb.getDb().db().collection('players').find().toArray();
+    res.setHeader('Content-Type', 'application/json');
+    res.status(200).json(lists);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -18,11 +16,14 @@ const getAll = async (req, res) => {
 const getSingle = async (req, res) => {
   try {
     const playerId = new ObjectId(req.params.id);
-    const result = await mongodb.getDb().db().collection('players').find({ _id: playerId });
-    result.toArray().then((lists) => {
+    const lists = await mongodb.getDb().db().collection('players').find({ _id: playerId }).toArray();
+    
+    if (lists.length > 0) {
       res.setHeader('Content-Type', 'application/json');
       res.status(200).json(lists[0]);
-    });
+    } else {
+      res.status(404).json({ message: 'Player not found' });
+    }
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
